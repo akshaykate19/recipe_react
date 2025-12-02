@@ -10,7 +10,7 @@ export default function Recipe()
     //Save recipes to localstorage
     const saveRecipes=(updateRecipes)=>{
         localStorage.setItem("recipes",JSON.stringify(updateRecipes));
-        setRecipes(updatedRecipes)
+        setRecipes(updateRecipes)
     }
 
     //Load recipes
