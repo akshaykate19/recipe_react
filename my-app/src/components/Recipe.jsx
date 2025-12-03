@@ -10,7 +10,7 @@ export default function Recipe()
     //Save recipes to localstorage
     const saveRecipes=(updateRecipes)=>{
         localStorage.setItem("recipes",JSON.stringify(updateRecipes));
-        setRecipes(updateRecipes)
+        setRecipes(updateRecipes);
     }
 
     //Load recipes
@@ -37,6 +37,14 @@ export default function Recipe()
         setIngredients("");
         setInstruction("");
     }
+
+    //Delete Recipe
+    const handleDelete=(id)=>{
+        const updatedRecipes=recipes.filter((r)=>r.id!==id)
+        saveRecipes(updatedRecipes);
+
+    }
+
     return(
         <>
         <div style={{maxWidth:"600px",margin:"20px auto",border:"1px solid #ccc",padding:"20px"}}>
@@ -60,6 +68,22 @@ export default function Recipe()
                     Add Recipe
                 </button>
             </form>
+        </div>
+
+        <div style={{maxWidth:"600px",margin:"20px auto",border:"1px solid #ccc",padding:"30px"}}>
+            <h3>All Recipes</h3>
+            {recipes.length===0 && <p>No recipes added yet</p>}
+            {recipes.map((r)=>(
+                <div key={r.id} style={{border:"1px solid #ccc", padding:"10px",marginBottom:"10px"}}>
+                    <h4>Recipe Name:{r.name}</h4>
+                    <p><strong>Ingredients</strong></p>
+                    <ul>{r.ingredients}</ul>
+                    <p><strong>Instructions:{r.instructions}</strong></p>
+                    <button style={{padding:"3px 8px",marginRight:"5px"}}>Edit</button> 
+                    <button style={{padding:"3px 8px",marginRight:"5px"}} onClick={()=>handleDelete(r.id)}>Delete</button>                    
+                    </div>
+            ))}
+
         </div>
         </>
     )
